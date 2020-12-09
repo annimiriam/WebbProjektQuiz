@@ -1,2 +1,7 @@
-package PACKAGE_NAME;public class Main {
+import static spark.Spark.*;
+
+public class Main {
+    public static void main(String[] args) {
+        get("/hello", (req, res) -> "Hello World");
+    }
 }

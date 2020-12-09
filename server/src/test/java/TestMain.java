@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class TestMain {
+public class TestMain {
+    // Här kan vi skriva lite tester.
 }
