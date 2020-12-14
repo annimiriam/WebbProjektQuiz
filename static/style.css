@@ -1,0 +1,77 @@
+body {
+    background-color: #fafbfb;
+  }
+
+/* Style of nav bar and the buttons */
+#nav-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 1px 1px 10px #1f1e1e;
+}
+
+#navbarDarkDropdownMenuLink {
+  color: white!important;
+}
+
+#greynav {
+  color: grey!important;
+}
+#account-button {
+    margin-left: 10px;
+    border-radius: 16px;
+}
+
+#navbarNavDarkDropdown {
+    margin-left: 50%;
+}
+
+/* Style the big image *on the front page */
+#bigpicture {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 450px;
+    width: 100%;
+    box-shadow: 1px 1px 10px #1f1e1e;
+  }
+
+/* Style the button in the middle of image */
+.background-img #start-quiz-button {
+    position: absolute;
+    top: 55%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-family: 'Nunito', sans-serif;
+    font-size: 25px;
+    padding: 15px 28px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    z-index: 1;
+  }
+  
+  .background-img #start-quiz-button:hover {
+    background-color:#65E080;
+  }
+
+  /* Styles the catch phrase in the middle of image */
+  .background-img #catch-phrase {
+    font-family: 'Nunito', sans-serif;
+    font-size: 60px;
+    font-style: italic;
+    color: whitesmoke;
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+ /* Styles the text and information that comes after picture */
+#Textsquare {
+  margin-top: 10px;
+  padding: 10px;
+}
