@@ -12,9 +12,11 @@ import java.util.Arrays;
 import static spark.Spark.*;
 
 public class Main {
-    private static String quizKey = Main.quizKeyFromEnv("quiz");
+   private static String quizKey = Main.quizKeyFromEnv("quiz");
 
     public static void main(String[] args) {
+
+        /*
         get("/", "application/json", (req, res) -> {
             HttpClient client = HttpClient.newHttpClient();
 
@@ -29,6 +31,45 @@ public class Main {
             HttpRequest youtubeRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
                     .uri(URI.create("https://youtube.googleapis.com/youtube/v3/search"))
+                    .build();
+
+            HttpResponse<String> quizResponse =
+                    client.send(quizRequest, HttpResponse.BodyHandlers.ofString());
+
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+            String body = quizResponse.body();
+            QuizQuestion[] questions = gson.fromJson(body, QuizQuestion[].class);
+            System.out.println(Arrays.toString(questions));
+
+//            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+//                    .thenApply(HttpResponse::body)
+//                    .thenAccept(System.out::println)
+//                    .join();
+
+            res.type("application/json");
+
+            return questions;
+        }, new JsonTransformer());
+
+         */
+
+        get("/:id", "application/json", (req, res) -> {
+            HttpClient client = HttpClient.newHttpClient();
+
+            // HTTP request to quizapi.io
+            String QuizURI = "https://quizapi.io/api/v1/questions?category=" + req.params("id") + "&limit=5";
+            HttpRequest quizRequest = HttpRequest.newBuilder()
+                    .header("Accept", "application/json")
+                    .header("x-api-key", quizKey) // ÄNDRA TILLBAKA!!!!
+                    .uri(URI.create(QuizURI))
+                    .build();
+
+            // HTTP request to Youtube.
+            String YouTubeURI = "https://youtube.googleapis.com/youtube/v3/search?part=" + req.params("id"); // Ska det skrivas så?
+            HttpRequest youtubeRequest = HttpRequest.newBuilder()
+                    .header("Accept", "application/json")
+                    .uri(URI.create(YouTubeURI))
                     .build();
 
             HttpResponse<String> quizResponse =
