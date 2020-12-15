@@ -1,19 +1,21 @@
 package YouTube;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * This class represents a YouTube video
  *
  * @author Anni Johansson
  */
-public class YouTubeVideos {
+public class VideoItem {
     public String kind = "";
-    public String etag = ""; // Etag-objekt?
+    public String etag = "";
     public Id id = new Id();
     public Snippet snippet = new Snippet();
 
     @Override
     public String toString() {
-        return "YouTubeVideos{" +
+        return "VideoItem{" +
                 "kind='" + kind + '\'' +
                 ", etag='" + etag + '\'' +
                 ", id=" + id +
@@ -61,8 +63,8 @@ public class YouTubeVideos {
         }
 
         public class Thumbnails {
-
-            public ThumbnailObjects default_ = new ThumbnailObjects(); // Egentligen default, men det är reserverat ord
+            @SerializedName("default")
+            public ThumbnailObjects default_ = new ThumbnailObjects();
             public ThumbnailObjects medium = new ThumbnailObjects();
             public ThumbnailObjects high = new ThumbnailObjects();
             public ThumbnailObjects standard = new ThumbnailObjects();
