@@ -61,7 +61,7 @@ public class Main {
             String QuizURI = "https://quizapi.io/api/v1/questions?category=" + req.params("id") + "&limit=5";
             HttpRequest quizRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
-                    .header("x-api-key", quizKey) // ÄNDRA TILLBAKA!!!!
+                    .header("x-api-key", quizKey)
                     .uri(URI.create(QuizURI))
                     .build();
 
