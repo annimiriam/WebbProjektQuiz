@@ -13,6 +13,7 @@ import static spark.Spark.*;
 
 public class Main {
    private static String quizKey = Main.quizKeyFromEnv("quiz");
+   private static String youtubeKey = Main.youtubeKeyFromEnv("youtube");
 
     public static void main(String[] args) {
 
@@ -66,7 +67,7 @@ public class Main {
                     .build();
 
             // HTTP request to Youtube.
-            String YouTubeURI = "https://youtube.googleapis.com/youtube/v3/search?part=" + req.params("id"); // Ska det skrivas så?
+            String YouTubeURI = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResult=5&q=" + req.params("id") + "&key=" + youtubeKey;
             HttpRequest youtubeRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
                     .uri(URI.create(YouTubeURI))
@@ -101,6 +102,15 @@ public class Main {
         var key = System.getenv(varName);
         if (key == null) {
             System.err.println("Failed to load API key for quizapi.io");
+            System.exit(1);
+        }
+        return key;
+    }
+
+    private static String youtubeKeyFromEnv(String varName) {
+        var key = System.getenv(varName);
+        if (key == null) {
+            System.err.println("Failed to load API key for YouTube.com");
             System.exit(1);
         }
         return key;
