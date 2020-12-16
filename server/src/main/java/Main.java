@@ -64,7 +64,7 @@ public class Main {
             HttpClient client = HttpClient.newHttpClient();
 
             // HTTP request to quizapi.io
-            String QuizURI = "https://quizapi.io/api/v1/questions?category=" + req.params("id") + "&limit=5";
+            String QuizURI = "https://quizapi.io/api/v1/questions?tags=" + req.params("id") + "&limit=5";
             HttpRequest quizRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
                     .header("x-api-key", quizKey)
