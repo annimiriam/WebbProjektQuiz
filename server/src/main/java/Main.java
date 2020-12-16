@@ -22,44 +22,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*
-        get("/", "application/json", (req, res) -> {
-            HttpClient client = HttpClient.newHttpClient();
-
-            // HTTP request to quizapi.io
-            HttpRequest quizRequest = HttpRequest.newBuilder()
-                    .header("Accept", "application/json")
-                    .header("x-api-key", quizKey)
-                    .uri(URI.create("https://quizapi.io/api/v1/questions?category=Docker&limit=5"))
-                    .build();
-
-            // HTTP request to Youtube.
-            HttpRequest youtubeRequest = HttpRequest.newBuilder()
-                    .header("Accept", "application/json")
-                    .uri(URI.create("https://youtube.googleapis.com/youtube/v3/search"))
-                    .build();
-
-            HttpResponse<String> quizResponse =
-                    client.send(quizRequest, HttpResponse.BodyHandlers.ofString());
-
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-
-            String body = quizResponse.body();
-            QuizQuestion[] questions = gson.fromJson(body, QuizQuestion[].class);
-            System.out.println(Arrays.toString(questions));
-
-//            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-//                    .thenApply(HttpResponse::body)
-//                    .thenAccept(System.out::println)
-//                    .join();
-
-            res.type("application/json");
-
-            return questions;
-        }, new JsonTransformer());
-
-         */
-
         get("/:id", "application/json", (req, res) -> {
             HttpClient client = HttpClient.newHttpClient();
 
@@ -98,6 +60,11 @@ public class Main {
             }
 
             QuizAndVideo quizAndVideo = new QuizAndVideo(Arrays.asList(questions), videoIds);
+
+            //        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+//                    .thenApply(HttpResponse::body)
+//                    .thenAccept(System.out::println)
+//                    .join();
 
             res.type("application/json");
             return quizAndVideo;
