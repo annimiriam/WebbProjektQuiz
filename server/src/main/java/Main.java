@@ -1,13 +1,18 @@
 import Quiz.QuizQuestion;
+import YouTube.VideoItem;
+import YouTube.YoutubeSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import quizresponse.QuizAndVideo;
 import spark.ResponseTransformer;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static spark.Spark.*;
 
@@ -76,20 +81,26 @@ public class Main {
             HttpResponse<String> quizResponse =
                     client.send(quizRequest, HttpResponse.BodyHandlers.ofString());
 
+            HttpResponse<String> ytResponse =
+                    client.send(youtubeRequest, HttpResponse.BodyHandlers.ofString());
+
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
             String body = quizResponse.body();
             QuizQuestion[] questions = gson.fromJson(body, QuizQuestion[].class);
-            System.out.println(Arrays.toString(questions));
 
-//            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-//                    .thenApply(HttpResponse::body)
-//                    .thenAccept(System.out::println)
-//                    .join();
+            YoutubeSearchResult yt = gson.fromJson(ytResponse.body(), YoutubeSearchResult.class);
+
+            List<VideoItem> items = yt.items;
+            List<String> videoIds = new ArrayList<>();
+            for (var item : items) {
+                videoIds.add(item.id.videoId);
+            }
+
+            QuizAndVideo quizAndVideo = new QuizAndVideo(Arrays.asList(questions), videoIds);
 
             res.type("application/json");
-
-            return questions;
+            return quizAndVideo;
         }, new JsonTransformer());
 
         get("/", (req, res) -> {
