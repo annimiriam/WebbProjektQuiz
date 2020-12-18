@@ -11,7 +11,6 @@
         <style>        
             *, *::before, *::after {
             box-sizing: border-box;
-            font-family: Gotham Rounded;
             }
 
             :root {
@@ -30,7 +29,7 @@
                 height: 100vh;
                 justify-content: center;
                 align-items: center;
-                background-color: hsl(var(--hue), 100%, 20%);
+                background-color: #fafbfb;
             }
 
             .container {
@@ -51,7 +50,6 @@
 
             .btn {
             --hue: var(--hue-neutral);
-            border: 1px solid hsl(var(--hue), 100%, 30%);
             background-color: hsl(var(--hue), 100%, 50%);
             border-radius: 5px;
             padding: 5px 10px;
@@ -86,7 +84,27 @@
 
             .hide {
             display: none;
+   
             }
+
+            #nav-bar {
+                top: 0;
+                left: 0;
+                z-index: 999;
+                overflow: scroll;
+                font-family: var(--bs-font-sans-serif)!important;
+            }
+
+            #greynav {
+                background-color: #212529;
+            }
+
+            #account-button{
+                background-color: #198754;
+                border-color: #198754;
+            }
+
+
         </style>
     </head>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-bar">
