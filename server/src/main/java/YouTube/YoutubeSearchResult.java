@@ -2,6 +2,9 @@ package YouTube;
 
 import java.util.List;
 
+/**
+ * This class represents a search result from YouTube
+ */
 public class YoutubeSearchResult {
     public String kind = "";
     public String etag = "";

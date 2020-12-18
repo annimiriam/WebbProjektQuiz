@@ -76,6 +76,7 @@ public class Main {
 
     }
 
+    // Gets the API-key for the Quiz-API request from an environment variable
     private static String quizKeyFromEnv(String varName) {
         var key = System.getenv(varName);
         if (key == null) {
@@ -85,6 +86,7 @@ public class Main {
         return key;
     }
 
+    // Gets the API-key for the YouTube request from an environment variable
     private static String youtubeKeyFromEnv(String varName) {
         var key = System.getenv(varName);
         if (key == null) {
