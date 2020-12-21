@@ -76,6 +76,10 @@ function clearStatusClass(element) {
   element.classList.remove('wrong')
 }
 
+function reply_click(clicked_id) {
+  alert("Hej hopp" + clicked_id);
+}
+
 const questions = [
   {
     question: 'Docker containers and images are included in Plesk Backup and migrated by Plesk Migrator?',
