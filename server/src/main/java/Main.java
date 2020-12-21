@@ -21,14 +21,14 @@ public class Main {
     private static String SERVER_ADDRESS = "http://localhost:4567/";
     private static String quizKey = Main.keyFromEnv("quiz");
     private static String youtubeKey = Main.keyFromEnv("youtube");
-    private static Set<String> categories = Set.of("html", "blabla", "asdasd", "xyvcz");
+    private static Set<String> categories = Set.of("html", "php", "javascript", "wordpress");
     private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     private static Map<String, QuizAndVideo> cache = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         List<String> categoryURIs = new ArrayList<>();
         for (var category : categories) {
-            categoryURIs.add(SERVER_ADDRESS + category);
+            categoryURIs.add(SERVER_ADDRESS + "api/categories/" + category);
         }
 
         get("/api/categories", (req, res) -> {
