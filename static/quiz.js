@@ -80,6 +80,14 @@ function reply_click(clicked_id) {
   alert("Hej hopp" + clicked_id);
 }
 
+///function getQuestionsfromAPI(clicked_id) {
+ /// $.ajax({
+  ///  url: 'localhost:4567/api/categories/' + clicked_id
+  ///headers: {"Accept": "application/json"}
+   /// })
+  
+///}
+
 const questions = [
   {
     question: 'Docker containers and images are included in Plesk Backup and migrated by Plesk Migrator?',
