@@ -1,15 +1,15 @@
 package quizresponse;
 
-import Quiz.QuizQuestion;
+import Quiz.OurQuizQuestion;
 
 import java.util.List;
 
 public class QuizAndVideo {
-    public QuizAndVideo(List<QuizQuestion> questions, List<String> videoLinks) {
+    public List<OurQuizQuestion> questions;
+    public List<String> videoLinks;
+
+    public QuizAndVideo(List<OurQuizQuestion> questions, List<String> videoLinks) {
         this.questions = questions;
         this.videoLinks = videoLinks;
     }
-
-    public List<QuizQuestion> questions;
-    public List<String> videoLinks;
 }
