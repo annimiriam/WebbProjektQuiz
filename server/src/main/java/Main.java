@@ -17,6 +17,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static spark.Spark.*;
 
+/**
+ * This class handles the requests to our API and the communication with the Quiz API and YouTube API.
+ * @author Fredrik Jeppsson, Anni Johansson
+ */
 public class Main {
     private static String SERVER_ADDRESS = "http://localhost:4567/";
     private static String quizKey = Main.keyFromEnv("quiz");
@@ -64,7 +68,6 @@ public class Main {
                     .build();
 
             var ytURI = youtubeURI(req, id);
-            System.out.println(ytURI);
             HttpRequest youtubeRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
                     .uri(URI.create(ytURI))
@@ -84,6 +87,7 @@ public class Main {
         }, new JsonTransformer());
     }
 
+    // Returns the URI for the YouTube request
     private static String youtubeURI(Request req, String id) {
         var nbrOfVideos = req.queryParams("nbrOfVideos");
         String youtubeURI;
@@ -98,6 +102,7 @@ public class Main {
         return youtubeURI;
     }
 
+    // Returns the URI for the QuizAPI request
     private static String quizURI(Request req, String id) {
         var nbrOfQuestions = req.queryParams("nbrOfQuestions");
         var quizURI = "";
@@ -130,7 +135,7 @@ public class Main {
         return new QuizAndVideo(ourQuizQuestions, videoIds);
     }
 
-    // Gets the API-key for the Quiz-API request from an environment variable
+    // Gets the API-key for the Quiz-API and YouTube request from an environment variable
     private static String keyFromEnv(String varName) {
         var key = System.getenv(varName);
         if (key == null) {

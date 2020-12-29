@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * This class represents a YouTube video
- *
  * @author Anni Johansson
  */
 public class VideoItem {

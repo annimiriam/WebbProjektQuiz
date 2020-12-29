@@ -1,5 +1,9 @@
 package Quiz;
 
+/**
+ * This class is a representation of the quiz questions used in our API
+ * @author Fredrik Jeppsson
+ */
 public class OurQuizQuestion {
     public String question = "";
     public Answers answers;

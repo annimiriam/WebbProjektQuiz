@@ -2,7 +2,6 @@ package Quiz;
 
 /**
  * This class holds the correct answers to on {@link QuizQuestion}
- *
  * @author Anni Johansson
  */
 public class CorrectAnswers {

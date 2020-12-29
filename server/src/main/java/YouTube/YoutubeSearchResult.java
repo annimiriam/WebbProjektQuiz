@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * This class represents a search result from YouTube
+ * @author Fredrik Jeppsson
  */
 public class YoutubeSearchResult {
     public String kind = "";
