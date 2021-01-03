@@ -21,8 +21,12 @@ def return_home():
 def aboutus_page():
     return template("creators")
 
+@route('/contact')
+def contact_page():
+    return template("contact")
+
 @route('/documentation')
 def dokument_page():
     return template("documentation")
 
-run(host='localhost', port=8081, debug=True, reloader=True)
+run(host='localhost', port=8083, debug=True, reloader=True)
