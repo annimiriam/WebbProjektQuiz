@@ -80,7 +80,7 @@ function reply_click(clicked_id) {
   alert("Hej hopp" + clicked_id);
 }
 
-function getAPI() {
+function getAPI(clicked_id) {
   $.ajax({
     url: 'localhost:4567/api/categories/' + clicked_id,
     headers: {"Accept": "application/json"}
@@ -89,3 +89,5 @@ function getAPI() {
     console.log(data);
   });
 };
+
+const question
