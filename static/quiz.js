@@ -86,8 +86,8 @@ function getAPI() {
     headers: {"Accept": "application/json"}
   })
   .done(function (data) { 
-    list = $('#quiz');
+    console.log(data);
   });
 };
 
-const question = $('#quiz')
+//const question = 
