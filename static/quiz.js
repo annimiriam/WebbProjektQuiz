@@ -80,34 +80,14 @@ function reply_click(clicked_id) {
   alert("Hej hopp" + clicked_id);
 }
 
-const questions = [
-  {
-    question: 'Docker containers and images are included in Plesk Backup and migrated by Plesk Migrator?',
-    answers: [
-      { text: 'False', correct: true },
-      { text: 'True', correct: false }
-    ]
-  },
-  {
-    question: 'How to login into docker hub?',
-    answers: [
-      { text: '$ docker $login', correct: false },
-      { text: '$ docker --log', correct: false },
-      { text: '$ docker login', correct: true },
-    ]
-  },
-  {
-    question: 'Docker hosts IP address by default is 192.168.99.100?',
-    answers: [
-      { text: 'True', correct: true },
-      { text: 'False', correct: false },
-    ]
-  },
-  {
-    question: 'What Is K8s?',
-    answers: [
-      { text: 'Kubernetes, also sometimes called K8S (K – eight characters – S), is an open source backend framework for containerized applications that was born from the Azure data centers.', correct: false },
-      { text: 'Kubernetes, also sometimes called K8S (K – eight characters – S), is an open source orchestration framework for containerized applications that was born from the Google data centers', correct: true }
-    ]
-  }
-]
+function getAPI(clicked_id) {
+  $.ajax({
+    url: 'localhost:4567/api/categories/' + clicked_id,
+    headers: {"Accept": "application/json"}
+  })
+  .done(function (data) { 
+    console.log(data);
+  });
+};
+
+const question

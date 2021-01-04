@@ -28,7 +28,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="#"><u>All Quizzes</u></a></li>
-                                    <li><a class="dropdown-item" id="HTML" onClick="reply_click(this.id)" href="/Quiz">&nbsp; HTML</a></li>
+                                    <li><a class="dropdown-item" id="HTML" onClick="getAPI(this.id)" href="/Quiz">&nbsp; HTML</a></li>
                                     <li><a class="dropdown-item" id="JavaScript" onClick="reply_click(this.id)" href="/Quiz">&nbsp; JavaScript</a></li>
                                     <li><a class="dropdown-item" id="PHP" onClick="reply_click(this.id)" href="/Quiz">&nbsp; PHP</a></li>
                                     <li><a class="dropdown-item" id="Wordpress" onClick="reply_click(this.id)" href="/Quiz">&nbsp; Wordpress</a></li>
@@ -42,8 +42,8 @@
                                     About us
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Contact</a></li>
-                                    <li><a class="dropdown-item" href="#">How it all started</a></li>
+                                    <li><a class="dropdown-item" href="/contact">Contact</a></li>
+                                    <li><a class="dropdown-item" href="/creators">Creators</a></li>
                                 </ul>
                             </li>
                         <a type="button" class="btn btn-dark" id="greynav" href="/documentation">Documentation &nbsp; |</a>
@@ -52,17 +52,20 @@
                     </div>
                 </div>
             </nav>
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="..." alt="...">
+            <div class="contact-wrapper">
+                <div class="card text-center">
+                    <div class="card-header">
+                    Contact
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Moa Svensson</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                    <div class="card-body">
+                    <h5 class="card-title">Visit us at:</h5>
+                    <p class="card-text">
+                        Imaginarystreet 5<br>
+                        QuizMania.se<br>
+                        Box 564, Disneyland<br>
+                        SWE</p>   
+                        </p>
+                    <a href="mailto:malmoquiz@gmail.com" class="btn btn-primary">Email us</a>
                     </div>
                 </div>
             </div>
