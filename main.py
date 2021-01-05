@@ -29,4 +29,12 @@ def contact_page():
 def dokument_page():
     return template("documentation")
 
-run(host='localhost', port=8083, debug=True, reloader=True)
+@route('/sign-in')
+def signin():
+    return template("sign-in")
+
+@route('/sign-up')
+def signup():
+    return template("sign-up")
+
+run(host='localhost', port=8084, debug=True, reloader=True)
