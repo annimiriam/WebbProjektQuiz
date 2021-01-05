@@ -12,8 +12,4 @@ public class Answers {
     public String answer_d = "";
     public String answer_e = "";
     public String answer_f = "";
-
-    public Answers(){
-
-    }
 }

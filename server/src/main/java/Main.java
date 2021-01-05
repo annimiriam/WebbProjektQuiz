@@ -1,3 +1,4 @@
+import quiz.OurAnswer;
 import quiz.OurQuizQuestion;
 import quiz.QuizQuestion;
 import youtube.VideoItem;
@@ -125,20 +126,59 @@ public class Main {
     // Combines the result of the Youtube and Quizapi.io responses into the
     // object that is returned from an api/categories/{category} request.
     private static QuizAndVideo extractQuizAndVideoData(QuizQuestion[] questions, YoutubeSearchResult ytResults) {
+        // Extract videoID from the youtube search result.
         List<VideoItem> items = ytResults.items;
         List<String> videoIds = new ArrayList<>();
         for (var item : items) {
             videoIds.add(item.id.videoId);
         }
 
+        // Transforming the quiz questions from quizapi.io into our own format.
         List<OurQuizQuestion> ourQuizQuestions = new ArrayList<>();
         for (var question : questions) {
-            var quest = question.question;
+            var questionText = question.question;
             var answers = question.answers;
-            var multiple_correct = question.multiple_correct_answers;
             var correct_answers = question.correct_answers;
-            var ourQuestion = new OurQuizQuestion(quest, answers, multiple_correct,
-                    correct_answers);
+
+            /* The quizapi returns up to 6 questions (a to f). E.g. if a question has 3 answers, answers_a,
+            answers_b and answers_c will have values and answers_d, _e and _f will be null.
+
+            The null checks are necessary because even if an answer is null, the corresponding true/false
+            'correct answer' field will exist. If the answers.answer_x field is null can throw away the
+             correct_answers.answer_x_correct field */
+            var ourAnswers = new ArrayList<OurAnswer>();
+            if (answers.answer_a != null) {
+                var answer = answers.answer_a;
+                var correct = correct_answers.answer_a_correct;
+                ourAnswers.add(new OurAnswer(answer, correct));
+            }
+            if (answers.answer_b != null) {
+                var answer = answers.answer_b;
+                var correct = correct_answers.answer_b_correct;
+                ourAnswers.add(new OurAnswer(answer, correct));
+            }
+            if (answers.answer_c != null) {
+                var answer = answers.answer_c;
+                var correct = correct_answers.answer_c_correct;
+                ourAnswers.add(new OurAnswer(answer, correct));
+            }
+            if (answers.answer_d != null) {
+                var answer = answers.answer_d;
+                var correct = correct_answers.answer_d_correct;
+                ourAnswers.add(new OurAnswer(answer, correct));
+            }
+            if (answers.answer_e != null) {
+                var answer = answers.answer_e;
+                var correct = correct_answers.answer_e_correct;
+                ourAnswers.add(new OurAnswer(answer, correct));
+            }
+            if (answers.answer_f != null) {
+                var answer = answers.answer_f;
+                var correct = correct_answers.answer_f_correct;
+                ourAnswers.add(new OurAnswer(answer, correct));
+            }
+
+            var ourQuestion = new OurQuizQuestion(questionText, ourAnswers);
             ourQuizQuestions.add(ourQuestion);
         }
 
