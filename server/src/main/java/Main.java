@@ -150,32 +150,32 @@ public class Main {
             if (answers.answer_a != null) {
                 var answer = answers.answer_a;
                 var correct = correct_answers.answer_a_correct;
-                ourAnswers.add(new OurAnswer(answer, correct));
+                ourAnswers.add(new OurAnswer(answer, Boolean.parseBoolean(correct)));
             }
             if (answers.answer_b != null) {
                 var answer = answers.answer_b;
                 var correct = correct_answers.answer_b_correct;
-                ourAnswers.add(new OurAnswer(answer, correct));
+                ourAnswers.add(new OurAnswer(answer, Boolean.parseBoolean(correct)));
             }
             if (answers.answer_c != null) {
                 var answer = answers.answer_c;
                 var correct = correct_answers.answer_c_correct;
-                ourAnswers.add(new OurAnswer(answer, correct));
+                ourAnswers.add(new OurAnswer(answer, Boolean.parseBoolean(correct)));
             }
             if (answers.answer_d != null) {
                 var answer = answers.answer_d;
                 var correct = correct_answers.answer_d_correct;
-                ourAnswers.add(new OurAnswer(answer, correct));
+                ourAnswers.add(new OurAnswer(answer, Boolean.parseBoolean(correct)));
             }
             if (answers.answer_e != null) {
                 var answer = answers.answer_e;
                 var correct = correct_answers.answer_e_correct;
-                ourAnswers.add(new OurAnswer(answer, correct));
+                ourAnswers.add(new OurAnswer(answer, Boolean.parseBoolean(correct)));
             }
             if (answers.answer_f != null) {
                 var answer = answers.answer_f;
                 var correct = correct_answers.answer_f_correct;
-                ourAnswers.add(new OurAnswer(answer, correct));
+                ourAnswers.add(new OurAnswer(answer, Boolean.parseBoolean(correct)));
             }
 
             var ourQuestion = new OurQuizQuestion(questionText, ourAnswers);

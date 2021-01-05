@@ -6,9 +6,9 @@ package quiz;
  */
 public class OurAnswer {
     String text;
-    String correct;
+    boolean correct;
 
-    public OurAnswer(String text, String correct) {
+    public OurAnswer(String text, boolean correct) {
         this.text = text;
         this.correct = correct;
     }
