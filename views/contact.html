@@ -46,9 +46,11 @@
                                     <li><a class="dropdown-item" href="/creators">Creators</a></li>
                                 </ul>
                             </li>
-                        <a type="button" class="btn btn-dark" id="greynav" href="/documentation">Documentation &nbsp; |</a>
-                        <button type="button" class="btn btn-success" id="account-button">Sign in</button> 
-                        <button type="button" class="btn btn-outline-success" id="account-button">Sign up</button> 
+                            <a type="button" class="btn btn-dark" id="greynav" href="/documentation">Documentation &nbsp; |</a>
+                            <a href="/sign-in" class="btn btn-success" id="account-button" target="popup" onclick="window.open('sign-in','popup','width=600,height=600'); return false;">
+                            Sign in </a>
+                            <a href="/sign-up" class="btn btn-success" id="account-button" target="popup" onclick="window.open('sign-up','popup','width=600,height=600'); return false;">
+                              Sign up </a>
                     </div>
                 </div>
             </nav>
