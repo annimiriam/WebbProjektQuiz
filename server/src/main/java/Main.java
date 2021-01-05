@@ -35,6 +35,7 @@ public class Main {
             categoryURIs.add(SERVER_ADDRESS + "api/categories/" + category);
         }
 
+
         get("/api/categories", (req, res) -> {
             res.type("application/json");
             return categoryURIs;
@@ -42,14 +43,19 @@ public class Main {
 
         get("/api/categories/:id", (req, res) -> {
             res.type("application/json");
-            var id = req.params("id");
 
+            // todo: place in its own thing that's always run before response is sent. see Spark Java documentation.
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+            res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+            var id = req.params("id");
 
             if (!categories.contains(id)) {
                 // If we get here the api has been called at an invalid URL.
                 // Use some kind of http status code instead of this string.
                 res.status(404);
                 // todo: looks ugly.
+                // todo: fix this todo.
                 return "couldn't find category.";
             }
 

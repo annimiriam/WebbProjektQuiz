@@ -76,18 +76,23 @@ function clearStatusClass(element) {
   element.classList.remove('wrong')
 }
 
-function reply_click(clicked_id) {
-  alert("Hej hopp" + clicked_id);
-}
-
-function getAPI(clicked_id) {
+function populateQuiz(category) {
+  console.log(`category: ${category}`);
   $.ajax({
-    url: 'localhost:4567/api/categories/' + clicked_id,
+    url: `http://localhost:4567/api/categories/${category}`,
     headers: {"Accept": "application/json"}
   })
   .done(function (data) { 
+    // Data is the response from the server.
     console.log(data);
-  });
-};
 
-const question
+
+
+    // Insert into quiz elements.
+
+  })
+  .fail(function (data) {
+    // Do something when the call fails.
+    console.log("call failed");
+  });
+}
