@@ -4,7 +4,7 @@ const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 
-let shuffledQuestions, currentQuestionIndex
+let shuffledQuestions, currentQuestionIndex, questions = []
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
@@ -83,6 +83,7 @@ function populateQuiz(category) {
     headers: {"Accept": "application/json"}
   })
   .done(function (data) { 
+    questions = data.questions
     // Data is the response from the server.
     console.log(data);
 
@@ -96,3 +97,4 @@ function populateQuiz(category) {
     console.log("call failed");
   });
 }
+
