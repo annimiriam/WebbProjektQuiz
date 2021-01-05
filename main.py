@@ -45,6 +45,10 @@ def javascript():
 def wordpress_quiz_page():
     return template("Quiz", name='wordpress')
 
+@route('/sign-in')
+def signin():
+    return template("sign-in")
+
 @route('/sign-up')
 def signup():
     return template("sign-up")
