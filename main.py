@@ -45,4 +45,8 @@ def javascript():
 def wordpress_quiz_page():
     return template("Quiz", name='wordpress')
 
+@route('/sign-up')
+def signup():
+    return template("sign-up")
+
 run(host='localhost', port=8084, debug=True, reloader=True)
