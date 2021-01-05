@@ -9,9 +9,9 @@ def static_files(file_name):
 def list_articles():
     return template("index")
 
-@route('/Quiz')
-def get_quiz():
-    return template("Quiz")
+# @route('/Quiz')
+# def get_quiz():
+#     return template("Quiz")
 
 @route('/index')
 def return_home():
@@ -29,12 +29,20 @@ def contact_page():
 def dokument_page():
     return template("documentation")
 
-@route('/sign-in')
-def signin():
-    return template("sign-in")
+@route('/html')
+def html_quiz_page():
+    return template("Quiz", name='html')
 
-@route('/sign-up')
-def signup():
-    return template("sign-up")
+@route('/php')
+def php_quiz_page():
+    return template("Quiz", name='php')
 
-run(host='localhost', port=8084, debug=True, reloader=True)
+@route('/javascript')
+def php_quiz_page():
+    return template("Quiz", name='javascript')
+
+@route('/wordpress')
+def wordpress_quiz_page():
+    return template("Quiz", name='wordpress')
+
+run(host='localhost', port=8083, debug=True, reloader=True)
