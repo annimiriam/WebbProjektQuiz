@@ -1,4 +1,4 @@
-package YouTube;
+package youtube;
 
 import com.google.gson.annotations.SerializedName;
 

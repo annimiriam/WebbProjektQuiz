@@ -1,12 +1,13 @@
-import Quiz.OurQuizQuestion;
-import Quiz.QuizQuestion;
-import YouTube.VideoItem;
-import YouTube.YoutubeSearchResult;
+import quiz.OurQuizQuestion;
+import quiz.QuizQuestion;
+import youtube.VideoItem;
+import youtube.YoutubeSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import quizresponse.QuizAndVideo;
+import quizresponse.ResponseError;
 import spark.Request;
-import spark.ResponseTransformer;
+import util.JsonTransformer;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -35,6 +36,12 @@ public class Main {
             categoryURIs.add(SERVER_ADDRESS + "api/categories/" + category);
         }
 
+        after((req, res) -> {
+            // Enables CORS functionality.
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+            res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+        });
 
         get("/api/categories", (req, res) -> {
             res.type("application/json");
@@ -44,22 +51,16 @@ public class Main {
         get("/api/categories/:id", (req, res) -> {
             res.type("application/json");
 
-            // todo: place in its own thing that's always run before response is sent. see Spark Java documentation.
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-            res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
             var id = req.params("id");
 
             if (!categories.contains(id)) {
-                // If we get here the api has been called at an invalid URL.
-                // Use some kind of http status code instead of this string.
                 res.status(404);
-                // todo: looks ugly.
-                // todo: fix this todo.
-                return "couldn't find category.";
+                return new ResponseError("Could not find category: {" + id + "}");
             }
 
-            // Protection against calling the Youtube API too many times and exhausting our quota.
+            /* The Youtube API has a limited number of usages per day at the free tier.
+            We implement a cache that saves a particular response while the
+            server is running to minimize the number of Youtube requests. */
             if (cache.containsKey(id)) {
                 return cache.get(id);
             }
@@ -88,6 +89,7 @@ public class Main {
             QuizQuestion[] questions = gson.fromJson(quizResponse.body(), QuizQuestion[].class);
             YoutubeSearchResult yt = gson.fromJson(ytResponse.body(), YoutubeSearchResult.class);
             QuizAndVideo quizAndVideo = extractQuizAndVideoData(questions, yt);
+
             cache.put(id, quizAndVideo);
             return quizAndVideo;
         }, new JsonTransformer());
@@ -120,6 +122,8 @@ public class Main {
         return quizURI;
     }
 
+    // Combines the result of the Youtube and Quizapi.io responses into the
+    // object that is returned from an api/categories/{category} request.
     private static QuizAndVideo extractQuizAndVideoData(QuizQuestion[] questions, YoutubeSearchResult ytResults) {
         List<VideoItem> items = ytResults.items;
         List<String> videoIds = new ArrayList<>();
@@ -152,13 +156,6 @@ public class Main {
     }
 }
 
-class JsonTransformer implements ResponseTransformer {
-    private Gson gson = new Gson();
 
-    @Override
-    public String render(Object model) {
-        return gson.toJson(model);
-    }
-}
 
 

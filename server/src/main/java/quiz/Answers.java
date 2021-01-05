@@ -1,4 +1,4 @@
-package Quiz;
+package quiz;
 
 /**
  * This class represents the answer alternatives to one {@link QuizQuestion}

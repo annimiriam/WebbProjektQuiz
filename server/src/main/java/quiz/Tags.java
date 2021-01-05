@@ -1,4 +1,4 @@
-package Quiz;
+package quiz;
 
 /**
  * This class represents tags used in the {@link QuizQuestion}

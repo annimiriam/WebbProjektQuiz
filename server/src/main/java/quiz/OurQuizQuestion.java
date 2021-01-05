@@ -1,4 +1,4 @@
-package Quiz;
+package quiz;
 
 /**
  * This class is a representation of the quiz questions used in our API

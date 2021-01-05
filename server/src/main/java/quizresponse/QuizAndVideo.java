@@ -1,6 +1,6 @@
 package quizresponse;
 
-import Quiz.OurQuizQuestion;
+import quiz.OurQuizQuestion;
 
 import java.util.List;
 

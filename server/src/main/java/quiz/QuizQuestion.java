@@ -1,4 +1,4 @@
-package Quiz;
+package quiz;
 
 /**
  * This class represents a question for a quiz

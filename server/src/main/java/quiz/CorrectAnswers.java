@@ -1,4 +1,4 @@
-package Quiz;
+package quiz;
 
 /**
  * This class holds the correct answers to on {@link QuizQuestion}
