@@ -14,22 +14,25 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static spark.Spark.*;
 
 /**
  * This class handles the requests to our API and the communication with the Quiz API and YouTube API.
+ *
  * @author Fredrik Jeppsson, Anni Johansson
  */
 public class Main {
-    private static String SERVER_ADDRESS = "http://localhost:4567/";
-    private static String quizKey = Main.keyFromEnv("quiz");
-    private static String youtubeKey = Main.keyFromEnv("youtube");
-    private static Set<String> categories = Set.of("html", "php", "javascript", "wordpress");
-    private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-    private static Map<String, QuizAndVideo> cache = new ConcurrentHashMap<>();
+    private static final String SERVER_ADDRESS = "http://localhost:4567/";
+    private static final String quizKey = Main.keyFromEnv("quiz");
+    private static final String youtubeKey = Main.keyFromEnv("youtube");
+    private static final Set<String> categories = Set.of("html", "php", "javascript", "wordpress");
+    private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private static final Map<String, QuizAndVideo> cache = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         List<String> categoryURIs = new ArrayList<>();
@@ -37,8 +40,15 @@ public class Main {
             categoryURIs.add(SERVER_ADDRESS + "api/categories/" + category);
         }
 
+        exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+        });
+
         after((req, res) -> {
-            // Enables CORS functionality.
+            /* Enables CORS functionality. CORS is required even on localhost if the request
+            is coming from a server on a different port. The specific domain (localhost) and
+            port should ideally be specified instead of using a * wildcard but * is ued in the
+            interest of a smooth developer experience (using star lets you change ports freely). */
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
             res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
@@ -51,11 +61,10 @@ public class Main {
 
         get("/api/categories/:id", (req, res) -> {
             res.type("application/json");
-
             var id = req.params("id");
 
             if (!categories.contains(id)) {
-                res.status(404);
+                res.status(404);  // 404 Not Found
                 return new ResponseError("Could not find category: {" + id + "}");
             }
 
@@ -66,33 +75,45 @@ public class Main {
                 return cache.get(id);
             }
 
-            HttpClient client = HttpClient.newHttpClient();
+            var client = HttpClient.newHttpClient();
 
             var qURI = quizURI(req, id);
-            HttpRequest quizRequest = HttpRequest.newBuilder()
+            var quizRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
                     .header("x-api-key", quizKey)
+                    .timeout(Duration.of(1, SECONDS))
                     .uri(URI.create(qURI))
                     .build();
 
             var ytURI = youtubeURI(req, id);
-            HttpRequest youtubeRequest = HttpRequest.newBuilder()
+            var youtubeRequest = HttpRequest.newBuilder()
                     .header("Accept", "application/json")
+                    .timeout(Duration.of(1, SECONDS))
                     .uri(URI.create(ytURI))
                     .build();
 
-            HttpResponse<String> quizResponse =
-                    client.send(quizRequest, HttpResponse.BodyHandlers.ofString());
+            try {
+                var quizResponse = client.sendAsync(quizRequest, HttpResponse.BodyHandlers.ofString());
+                var ytResponse = client.sendAsync(youtubeRequest, HttpResponse.BodyHandlers.ofString());
 
-            HttpResponse<String> ytResponse =
-                    client.send(youtubeRequest, HttpResponse.BodyHandlers.ofString());
+                var actualQuizResponse = quizResponse.get();
+                var actualYtResponse = ytResponse.get();
 
-            QuizQuestion[] questions = gson.fromJson(quizResponse.body(), QuizQuestion[].class);
-            YoutubeSearchResult yt = gson.fromJson(ytResponse.body(), YoutubeSearchResult.class);
-            QuizAndVideo quizAndVideo = extractQuizAndVideoData(questions, yt);
+                if (actualQuizResponse.statusCode() != 200 || actualYtResponse.statusCode() != 200) {
+                    res.status(503);  // 503 Service Unavailable
+                    return new ResponseError("Could not serve quiz data due to an issue with an upstream API.");
+                }
 
-            cache.put(id, quizAndVideo);
-            return quizAndVideo;
+                var questions = gson.fromJson(actualQuizResponse.body(), QuizQuestion[].class);
+                var ytResult = gson.fromJson(actualYtResponse.body(), YoutubeSearchResult.class);
+                var quizAndVideo = extractQuizAndVideoData(questions, ytResult);
+
+                cache.put(id, quizAndVideo);
+                return quizAndVideo;
+            } catch (Exception e) {
+                res.status(503);  // 503 Service Unavailable
+                return new ResponseError("Could not serve quiz data due to a network error.");
+            }
         }, new JsonTransformer());
     }
 
@@ -102,7 +123,7 @@ public class Main {
         String youtubeURI;
         try {
             Integer.parseInt(nbrOfVideos);
-            youtubeURI = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults="+
+            youtubeURI = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=" +
                     nbrOfVideos + "&q=" + id + "&key=" + youtubeKey;
         } catch (NumberFormatException e) {
             youtubeURI = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q="
