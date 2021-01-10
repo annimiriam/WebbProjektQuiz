@@ -49,22 +49,9 @@ def signin():
 def signup():
     return template("sign-up")
 
-@route('/video')
-def html_video_page():
-    return template("video", name='html')
-
-@route('/video')
-def php_video_page():
-    print("HEJSAN")
-    return template("video", name='php')
-
-@route('/video')
-def javascript_video():
-    return template("video", name='javascript')
-
-@route('/video')
-def wordpress_video_page():
-    return template("video", name='wordpress')
+@route('/all_quizzes')
+def all_quizzes():
+    return template("all_quizzes")
 
 
-run(host='localhost', port=8086, debug=True, reloader=True)
+run(host='localhost', port=8087, debug=True, reloader=True)

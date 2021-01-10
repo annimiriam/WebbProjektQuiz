@@ -95,3 +95,11 @@ body {
  margin-right: 25%;
  margin-left: 25%;
 }
+
+#wrapper_all_quizzes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+  margin-right: 25%;
+  margin-left: 25%;
+}

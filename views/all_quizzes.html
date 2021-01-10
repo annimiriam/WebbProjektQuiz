@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="sv">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Startsida</title>
-        <link href="/static/style.css" type="text/css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
-    </head>
 
-    <body>
-        <main>
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startsida</title>
+    <link href="/static/style.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    </head>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-bar">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/index">QuizMania</a>
@@ -54,32 +53,41 @@
                     </div>
                 </div>
             </nav>
-            <div class="contact-wrapper">
-                <div class="card text-center">
-                    <div class="card-header">
-                    Contact
-                    </div>
-                    <div class="card-body">
-                    <h5 class="card-title">Visit us at:</h5>
-                    <p class="card-text">
-                        Imaginarystreet 5<br>
-                        QuizMania.se<br>
-                        Box 564, Disneyland<br>
-                        SWE</p>   
-                        </p>
-                    <a href="mailto:malmoquiz@gmail.com" class="btn btn-primary">Email us</a>
-                    </div>
+    <body>
+        <div id="wrapper_all_quizzes">
+            <div class="card" style="width: 18rem;">
+                <img src="/static/html.png" class="card-img-top" alt="HTML" style="height: 12rem;">
+                <div class="card-body">
+                <h5 class="card-title">HTML</h5>
+                <p class="card-text">HTML är ett märkspråk för hypertext och är den grundläggande standarden för WWW; webbsidor skrivs i allmänhet som HTML.</p>
+                <a class="btn btn-primary" id="HTML" onClick="reply_click(this.id)" href="/html">&nbsp; Quiz</a>
                 </div>
             </div>
-        </main>
-        <footer>
-
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-            crossorigin="anonymous"></script>
-        <script src="/static/bootstrap.js" defer></script>
-        <script src="/static/quiz.js" defer></script>
+            <div class="card" style="width: 18rem;">
+                <img src="/static/javascript.jpg" class="card-img-top" alt="JavaScript" style="height: 12rem;">
+                <div class="card-body">
+                    <h5 class="card-title">JavaScript</h5>
+                    <p class="card-text">JS är ett prototyp-baserat skriptspråk. Det används främst på klientsidan i webbtillämpningar, det vill säga exekveras i en webbläsares Javascriptmotor.</p>
+                    <a class="btn btn-primary" id="JavaScript" onClick="reply_click(this.id)" href="/javascript">&nbsp; Quiz</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="/static/PHP.jpg" class="card-img-top" alt="PHP" style="height: 12rem;">
+                <div class="card-body">
+                    <h5 class="card-title">PHP</h5>
+                    <p class="card-text">PHP är ett populärt skriptspråk som främst körs på webbservrar för att driva internetsajter med dynamiskt innehåll.</p>
+                    <a class="btn btn-primary" id="PHP" onClick="reply_click(this.id)" href="/php">&nbsp; Quiz</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="/static/wordpress.gif" class="card-img-top" alt="Wordpress" style="height: 12rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Wordpress</h5>
+                    <p class="card-text">Wordpress är ett blogg- och innehållshanteringssystem skrivet i PHP, och kan laddas ner och användas kostnadsfritt.</p>
+                    <a class="btn btn-primary" id="Wordpress" onClick="reply_click(this.id)" href="/wordpress">&nbsp; Quiz</a>
+                </div>
+            </div>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </body>
-
-</html>
+</html>    
