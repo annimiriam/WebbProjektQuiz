@@ -16,7 +16,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static spark.Spark.*;
@@ -32,17 +31,16 @@ public class Main {
     private static final String youtubeKey = Main.keyFromEnv("youtube");
     private static final Set<String> categories = Set.of("html", "php", "javascript", "wordpress");
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-    private static final Map<String, QuizAndVideo> cache = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
-        List<String> categoryURIs = new ArrayList<>();
+        var categoryURIs = new ArrayList<HashMap<String, String>>();
         for (var category : categories) {
-            categoryURIs.add(SERVER_ADDRESS + "api/categories/" + category);
+            var categoryInformation = new HashMap<String, String>();
+            categoryInformation.put("url", SERVER_ADDRESS + "api/categories/" + category);
+            categoryInformation.put("category", category);
+            categoryInformation.put("description", "Returns quiz data for the " + category + " category.");
+            categoryURIs.add(categoryInformation);
         }
-
-        exception(Exception.class, (exception, request, response) -> {
-            exception.printStackTrace();
-        });
 
         after((req, res) -> {
             /* Enables CORS functionality. CORS is required even on localhost if the request
@@ -66,13 +64,6 @@ public class Main {
             if (!categories.contains(id)) {
                 res.status(404);  // 404 Not Found
                 return new ResponseError("Could not find category: {" + id + "}");
-            }
-
-            /* The Youtube API has a limited number of usages per day at the free tier.
-            We implement a cache that saves a particular response while the
-            server is running to minimize the number of Youtube requests. */
-            if (cache.containsKey(id)) {
-                return cache.get(id);
             }
 
             var client = HttpClient.newHttpClient();
@@ -107,8 +98,6 @@ public class Main {
                 var questions = gson.fromJson(actualQuizResponse.body(), QuizQuestion[].class);
                 var ytResult = gson.fromJson(actualYtResponse.body(), YoutubeSearchResult.class);
                 var quizAndVideo = extractQuizAndVideoData(questions, ytResult);
-
-                cache.put(id, quizAndVideo);
                 return quizAndVideo;
             } catch (Exception e) {
                 res.status(503);  // 503 Service Unavailable
