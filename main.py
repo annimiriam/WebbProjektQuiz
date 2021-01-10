@@ -9,10 +9,6 @@ def static_files(file_name):
 def list_articles():
     return template("index")
 
-# @route('/Quiz')
-# def get_quiz():
-#     return template("Quiz")
-
 @route('/index')
 def return_home():
     return template("index")
@@ -53,4 +49,22 @@ def signin():
 def signup():
     return template("sign-up")
 
-run(host='localhost', port=8084, debug=True, reloader=True)
+@route('/video')
+def html_video_page():
+    return template("video", name='html')
+
+@route('/video')
+def php_video_page():
+    print("HEJSAN")
+    return template("video", name='php')
+
+@route('/video')
+def javascript_video():
+    return template("video", name='javascript')
+
+@route('/video')
+def wordpress_video_page():
+    return template("video", name='wordpress')
+
+
+run(host='localhost', port=8086, debug=True, reloader=True)

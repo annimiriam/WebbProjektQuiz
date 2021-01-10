@@ -26,7 +26,7 @@
         .sidenav a {
             padding: 6px 8px 6px 16px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             color:#f1f1f1;
             display: block;
         }
@@ -38,13 +38,20 @@
         .main {
             margin-left: 160px;
             /* Same as the width of the sidenav */
-            font-size: 28px;
+            font-size: 16px;
             /* Increased text to enable scrolling */
             padding: 0px 10px;
         }
 
         #padding {
             padding-top: 70px!important;
+        }
+
+        #titel {
+            font-size: calc(1.275rem + .3vw);
+            margin-bottom: .5rem;
+            font-weight: 500;
+            line-height: 1.2;
         }
 
     </style>
@@ -95,52 +102,64 @@
 <body>
     <main>
         <div class="sidenav">
-            <a href="#Get_Started">Get Started</a>
+            <a href="#User_manual">User manual</a>
             <a href="#Documentation">Documentation</a>
             <a href="/contact">Contact</a>
         </div>
 
         <div class="main">
             <div id="padding">
-            <a name="Get_Started"> Get Started </a>
+            <a name="User_manual" id="titel"> User manual</a>
             </div>
-            <p>This sidebar is of full height (100%) and always shown.</p>
-            <p>Scroll down the page to see the result.</p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <p>Projektet består av två separata webbservrar: en javaserver skriven med ramverket Spark Java [1] som används för API:et och en server skriven i Python med ramverket Bottle [2] som levererar html.
+                Klona projektet från https://github.com/annimiriam/WebbProjektQuiz.git
             </p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <p>
+                Python-servern startas genom att köra WebbProjektQuiz/main.py. Detta startar en webbserver på localhost:8083. Bottle kräver inga externa dependencies utöver bottle.py som levereras tillsammans med projektet.
+                Javaservern är ett mavenprojekt och Maven måste därför installeras. Se [3] om instruktion för detta önskas.
+                Javaservern använder API-nycklar för att kunna använda API från Youtube och quizapi.io. Nycklarna är lagrade i miljövariablerna ‘youtube’ och ‘quiz’ och måste sparas i dessa innan servern kan startas.
             </p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <p>  
+                Nyckel för variabeln youtube: AIzaSyDwxtKj6J7Zb0vYqUJ5Uxc4usz5ZWbtUrE
+                Nyckel för variabeln quiz: FuHvfV9ziQUPHthjIIojiW7APZcWdh4AVaYTUseG
             </p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <p>
+                För att köra java-servern:
+                Navigera till WebbProjektQuiz/server.
+                Kör kommandot ‘mvn compile’.
+                Kör kommandot ‘mvn exec:java -Dexec.mainClass=Main’ för att starta servern på localhost:4567.
+                Öppna http://localhost:8083 i en webbläsare.
             </p>
-            <a name="Documentation"> Documentation </a>
-            <p>This sidebar is of full height (100%) and always shown.</p>
-            <p>Scroll down the page to see the result.</p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <a name="Documentation" id="titel"> Documentation</a>
+            <p>
+                Quizmanias API ger tillgång till quiz om flertalet kategorier relaterade till systemutveckling och informationsarkitektur, samt video-id:n för att enkelt kunna använda till inbäddade Youtube-videor kring samma kategori. API:et följer RESTs principer. Anrop till ändpunkten categories returnerar de tillgängliga kategorierna UTVECKLA MER
+                Dokumentationen finns även tillgänglig under fliken Documentation på QuizManias webbsida. 
             </p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <h4>Headers</h4> 
+            <p>
+                HTTP-headern Accept: application/json kan användas. Returdatan representeras i JSON.
+                GET /api/categories
+                Returnerar de kategorier som API:et erbjuder. 
+                Exempel på returdata:
             </p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <img src="/static/header.png" alt="header">
+            <h4>GET /api/categories/{category}</h4>
+            <p>En viss frågekategori nås med hjälp av ett kategorinamn. De skrivs nedan som {category}. Ersätt därför hela {category} med kategorinamnet. Exempel på kategorinamn: html.
+                Ger en lista med frågor, svarsalternativ, information om det finns fler än ett korrekt svar, de korrekta svaren och video-id:n. För returdatan nedan har kategoriparametern html använts och parametern nbrOfQuestions har satts till 1.
+                Exempel på returdata:
             </p>
-            <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset
-                concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur
-                eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.
+            <img src="/static/retur.png" alt="returdata">
+            <h4>Parametrar</h4>
+            <b>nbrOfQuestions</b> <p>  Bestämmer hur många quizfrågor som returneras. Kan vara mellan 1-20. Om inget anges så returneras 20 frågor. 
             </p>
+            <b> nbrOfVideos </b> <p>Bestämmer hur många video-id:n som returneras. Kan vara mellan 1-20. Om inget anges så returneras 5 video-id:n.
+            </p>
+            <p>
+                Exempel: 
+                http://localhost:4567/api/categories/html?nbrOfQuestions=3&nbrOfVideos=2
+                API:et returnerar ett svar med 3 frågor och 2 matchande videolänkar.
+            </p>
+
         </div>
     </main>
     <footer>

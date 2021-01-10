@@ -110,10 +110,11 @@
                 --hue: var(--hue-wrong);
             }
 
-            .start-btn, .next-btn {
+            .start-btn, .next-btn, .video-btn {
                 font-size: 1.5rem;
                 font-weight: bold;
                 padding: 10px 20px;
+                margin: 5px;
             }
 
             .controls {
@@ -139,8 +140,7 @@
             #account-button{
                 background-color: #198754;
                 border-color: #198754;
-            }
-
+            }    
 
         </style>
     </head>
@@ -184,8 +184,7 @@
     </nav>
     <body>
         <main>
-
-            <div class="container">
+            <div class="container" id="quizframe">
                 <div id="question-container" class="hide">
                 <div id="question">Question</div>
                 <div id="answer-buttons" class="btn-grid">
@@ -198,11 +197,17 @@
                 <div class="controls">
                 <button id="start-btn" class="start-btn btn">Start</button>
                 <button id="next-btn" class="next-btn btn hide">Next</button>
+                <button id="video-btn" class="video-btn btn hide">Watch Video</button>
                 </div>
             </div>
+            <div id="videoframe" class="hide">
+                <iframe id="test" width="420" height="315" src=""></iframe>
+                <iframe id="test1" width="420" height="315" src=""></iframe>
+                <iframe id="test2" width="420" height="315" src=""></iframe>
+                <iframe id="test3" width="420" height="315" src=""></iframe>
+                <iframe id="test4" width="420" height="315" src=""></iframe>
+            </div>
+            
         </main>
-        
-        
-
     </body>
 </html>

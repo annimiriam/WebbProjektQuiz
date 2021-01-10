@@ -1,8 +1,12 @@
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
+const videoButton = document.getElementById('video-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+const videoFrame = document.getElementById('videoframe')
+const quizFrame = document.getElementById('quizframe')
+
 
 let shuffledQuestions, currentQuestionIndex, questions = []
 
@@ -59,6 +63,8 @@ function selectAnswer(e) {
   } else {
     startButton.innerText = 'Restart'
     startButton.classList.remove('hide')
+    videoButton.classList.remove('hide')
+    videoButton.addEventListener('click', () => { videoFrame.classList.remove('hide'); quizFrame.classList.add('hide'), hejhopp() })
   }
 }
 
@@ -70,6 +76,20 @@ function setStatusClass(element, correct) {
     element.classList.add('wrong')
   }
 }
+
+function hejhopp() {
+  nextButton.addEventListener('click', () => {
+    currentQuestionIndex++
+    setNextQuestion()
+  })
+  document.getElementById('test').src = 'https://www.youtube.com/embed/' + videoID
+  document.getElementById('test1').src = 'https://www.youtube.com/embed/' + videoID1
+  document.getElementById('test2').src = 'https://www.youtube.com/embed/' + videoID2
+  document.getElementById('test3').src = 'https://www.youtube.com/embed/' + videoID3
+  document.getElementById('test4').src = 'https://www.youtube.com/embed/' + videoID4
+
+}
+
 
 function clearStatusClass(element) {
   element.classList.remove('correct')
@@ -86,7 +106,12 @@ function populateQuiz(category) {
     questions = data.questions
     // Data is the response from the server.
     console.log(data);
-
+    
+    videoID = data.videoLinks[0]
+    videoID1 = data.videoLinks[1]
+    videoID2 = data.videoLinks[2]
+    videoID3 = data.videoLinks[3]
+    videoID4 = data.videoLinks[4]
 
 
     // Insert into quiz elements.
