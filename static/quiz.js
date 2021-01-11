@@ -46,6 +46,7 @@ function showQuestion(question) {
 }
 
 function resetState() {
+  videoButton.classList.add('hide')
   clearStatusClass(document.body)
   nextButton.classList.add('hide')
   while (answerButtonsElement.firstChild) {
@@ -88,8 +89,12 @@ function showVideo() {
 
   document.getElementById('test').src = 'https://www.youtube.com/embed/' + videos[currentVideoIndex]
   nextVideo.addEventListener('click', () => { 
-    videos.forEach(document.getElementById('test').src = 'https://www.youtube.com/embed/' + videos[currentVideoIndex ++] );
-  
+    if (currentVideoIndex <= 4) {
+      videos.forEach(document.getElementById('test').src = 'https://www.youtube.com/embed/' + videos[currentVideoIndex ++] ) }
+    else {
+      alert("Take a new quiz")
+      document.location.replace('/all_quizzes');
+    } 
   })
 }
 

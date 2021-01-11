@@ -21,9 +21,9 @@ def aboutus_page():
 def contact_page():
     return template("contact")
 
-@route('/documentation')
+@route('/api_docs')
 def dokument_page():
-    return template("documentation")
+    return template("api_docs")
 
 @route('/html')
 def html_quiz_page():
@@ -54,4 +54,4 @@ def all_quizzes():
     return template("all_quizzes")
 
 
-run(host='localhost', port=8087, debug=True, reloader=True)
+run(host='localhost', port=8088, debug=True, reloader=True)
