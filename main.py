@@ -1,10 +1,16 @@
 from bottle import route, run, template, request, static_file, redirect
 from os import listdir
 
+'''
+ creating route for static files such as css
+'''
 @route("/static/<file_name>")
 def static_files(file_name):
     return static_file(file_name, root="static")
 
+''' 
+creating routes for every html page
+'''
 @route("/")
 def list_articles():
     return template("index")
