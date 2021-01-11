@@ -31,6 +31,22 @@ def contact_page():
 def dokument_page():
     return template("api_docs")
 
+@route('/sign-in')
+def signin():
+    return template("sign-in")
+
+@route('/sign-up')
+def signup():
+    return template("sign-up")
+
+@route('/all_quizzes')
+def all_quizzes():
+    return template("all_quizzes")
+
+''' 
+creating routes for the same temlpate but with different routes depending on the selected namne
+'''
+
 @route('/html')
 def html_quiz_page():
     return template("Quiz", name='html')
@@ -47,17 +63,8 @@ def javascript():
 def wordpress_quiz_page():
     return template("Quiz", name='wordpress')
 
-@route('/sign-in')
-def signin():
-    return template("sign-in")
-
-@route('/sign-up')
-def signup():
-    return template("sign-up")
-
-@route('/all_quizzes')
-def all_quizzes():
-    return template("all_quizzes")
-
+''' 
+creating a local server 
+'''
 
 run(host='localhost', port=8088, debug=True, reloader=True)
