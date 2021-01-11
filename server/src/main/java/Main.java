@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        new APIServer();
+        APIServer apiServer = new APIServer();
+        apiServer.startServer();
     }
 }

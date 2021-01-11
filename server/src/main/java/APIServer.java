@@ -32,11 +32,6 @@ public class APIServer {
     private static final Set<String> categories = Set.of("html", "php", "javascript", "wordpress");
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-    public APIServer()
-    {
-        startServer();
-    }
-
     public void startServer() {
         var categoryURIs = new ArrayList<HashMap<String, String>>();
         for (var category : categories) {
