@@ -25,14 +25,19 @@ import static spark.Spark.*;
  *
  * @author Fredrik Jeppsson, Anni Johansson
  */
-public class Main {
+public class APIServer {
     private static final String SERVER_ADDRESS = "http://localhost:4567/";
-    private static final String quizKey = Main.keyFromEnv("quiz");
-    private static final String youtubeKey = Main.keyFromEnv("youtube");
+    private static final String quizKey = APIServer.keyFromEnv("quiz");
+    private static final String youtubeKey = APIServer.keyFromEnv("youtube");
     private static final Set<String> categories = Set.of("html", "php", "javascript", "wordpress");
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-    public static void main(String[] args) {
+    public APIServer()
+    {
+        startServer();
+    }
+
+    public void startServer() {
         var categoryURIs = new ArrayList<HashMap<String, String>>();
         for (var category : categories) {
             var categoryInformation = new HashMap<String, String>();
