@@ -67,4 +67,4 @@ def wordpress_quiz_page():
 creating a local server 
 '''
 
-run(host='localhost', port=8088, debug=True, reloader=True)
+run(host='localhost', port=8083, debug=True, reloader=True)
